@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RevealContact from "./components/RevealContact";
 
 export default function Home() {
   return (
@@ -58,6 +59,13 @@ export default function Home() {
           >
             Documentation
           </a>
+        </div>
+        <div className="flex min-h-screen flex-col items-center justify-center p-24 bg-gray-50">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Portfolio Contact</h1>
+            <p className="text-gray-600">Based in Forsyth County, GA</p>
+          </div>
+          <RevealContact />
         </div>
       </main>
     </div>
