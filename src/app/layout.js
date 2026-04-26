@@ -1,3 +1,27 @@
+import './globals.css'; // Move your global styles here
+import { Inter } from 'next/font/google';
+import styles from '../components/layout.module.css';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata = {
+  title: 'Collinatus Ventures',
+  description: 'Learn how to build a personal website using Next.js',
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <div className={styles.container}>
+          {children}
+        </div>
+      </body>
+    </html>
+  );
+}
+
+/*
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -26,3 +50,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+*/
+

@@ -1,3 +1,29 @@
+import { getSortedPostsData } from '../lib/posts'; // Assuming this utility exists
+import Link from 'next/link';
+import Date from '../components/date';
+
+export default async function Home() {
+  const allPostsData = getSortedPostsData();
+
+  return (
+    <section>
+      <h2>Blog</h2>
+      <ul>
+        {allPostsData.map(({ id, date, title }) => (
+          <li key={id}>
+            <Link href={`/posts/${id}`}>{title}</Link>
+            <br />
+            <small>
+              <Date dateString={date} />
+            </small>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/*
 import Image from "next/image";
 import RevealContact from "./components/RevealContact";
 
@@ -71,3 +97,4 @@ export default function Home() {
     </div>
   );
 }
+*/
