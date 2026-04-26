@@ -1,0 +1,46 @@
+name: Build and Deploy Next.js
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/checkout@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Project
+      # GitHub has 7GB+ of RAM, so no Bus Errors here!
+      run: npm run build
+
+    - name: Deploy to Lightsail via RSYNC
+      uses: Burnett01/rsync-deployments@7.0.1
+      with:
+        switches: -avzr --delete
+        path: .next/
+        remote_path: /home/${{ secrets.USERNAME }}/collinatus-web/.next/
+        remote_host: ${{ secrets.HOST }}
+        remote_user: ${{ secrets.USERNAME }}
+        remote_key: ${{ secrets.SSH_KEY }}
+
+    - name: Restart PM2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd /home/${{ secrets.USERNAME }}/collinatus-web
+          pm2 restart all || pm2 start npm --name "collinatus-web" -- start
