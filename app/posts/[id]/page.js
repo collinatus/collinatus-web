@@ -1,5 +1,5 @@
-import { getAllPostIds, getPostData } from '../../../lib/posts';
-import Date from '../../../components/date';
+import { getAllPostIds, getPostData } from '../../lib/posts';
+import Date from '../../components/date';
 
 // This replaces getStaticPaths
 export async function generateStaticParams() {
