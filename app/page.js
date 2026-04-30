@@ -1,4 +1,4 @@
-import { getSortedPostsData } from './lib/posts'; // Assuming this utility exists
+import { getSortedPostsData } from '../lib/posts'; // Assuming this utility exists
 import Link from 'next/link';
 import Date from './components/date';
 
